@@ -56,3 +56,20 @@ OK
 2) "okay"
 3) "send"
 127.0.0.1:6379>
+
+
+127.0.0.1:6379> set count:1 10
+OK
+127.0.0.1:6379> get count:!
+(nil)
+127.0.0.1:6379> get count:1
+"10"
+127.0.0.1:6379> incr count:1
+(integer) 11
+127.0.0.1:6379> incr count:1
+(integer) 12
+127.0.0.1:6379> incr count:1 by 10
+(error) ERR wrong number of arguments for 'incr' command
+127.0.0.1:6379> incrby count:1 10
+(integer) 22
+127.0.0.1:6379>
