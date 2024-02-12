@@ -76,3 +76,5 @@ OK
 
 
 // single redis string can be max of 512 mb
+
+http://localhost:8001/redis-stack/browser = redis gui
