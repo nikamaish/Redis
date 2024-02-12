@@ -1,0 +1,58 @@
+Microsoft Windows [Version 10.0.19045.3930]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\aishn>docker ps
+CONTAINER ID   IMAGE                      COMMAND            CREATED        STATUS         PORTS                                            NAMES
+b43eba29db66   redis/redis-stack:latest   "/entrypoint.sh"   36 hours ago   Up 2 minutes   0.0.0.0:6379->6379/tcp, 0.0.0.0:8001->8001/tcp   redis-stack
+
+C:\Users\aishn>docker exec -it b43eba29db66
+"docker exec" requires at least 2 arguments.
+See 'docker exec --help'.
+
+Usage:  docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
+
+Execute a command in a running container
+
+C:\Users\aishn>docker exec -it b43eba29db66 bash
+root@b43eba29db66:/# redis cli
+bash: redis: command not found
+root@b43eba29db66:/# redis-cli
+127.0.0.1:6379> ping
+PONG
+127.0.0.1:6379> ok
+(error) ERR unknown command 'ok', with args beginning with:
+127.0.0.1:6379> ping
+PONG
+127.0.0.1:6379> set user:1 Aish
+OK
+127.0.0.1:6379> get user:!
+(nil)
+127.0.0.1:6379> get user:1
+"Aish"
+127.0.0.1:6379> get user:1
+"Aish nik"
+127.0.0.1:6379> set user:2
+(error) ERR wrong number of arguments for 'set' command
+127.0.0.1:6379> set user:2 'garry'
+OK
+127.0.0.1:6379> set msg:1 'send'
+OK
+127.0.0.1:6379> get msg:1
+"send"
+127.0.0.1:6379> set msg:2 'okay'
+OK
+127.0.0.1:6379> get user:1 nx
+(error) ERR wrong number of arguments for 'get' command
+127.0.0.1:6379> get user:1 nx hello
+(error) ERR wrong number of arguments for 'get' command
+127.0.0.1:6379> set user:1 nx hello
+(error) ERR syntax error
+127.0.0.1:6379> set user:1 hello nx
+(nil)
+127.0.0.1:6379> set user:1 hello
+OK
+127.0.0.1:6379> mget user:1 msg:2 msg:1
+1) "hello"
+2) "okay"
+3) "send"
+127.0.0.1:6379>
