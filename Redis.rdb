@@ -73,3 +73,6 @@ OK
 127.0.0.1:6379> incrby count:1 10
 (integer) 22
 127.0.0.1:6379>
+
+
+// single redis string can be max of 512 mb
