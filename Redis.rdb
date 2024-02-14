@@ -23,6 +23,10 @@ PONG
 (error) ERR unknown command 'ok', with args beginning with:
 127.0.0.1:6379> ping
 PONG
+
+///////////////////////////////////// String ///////////////////////////////////////////
+
+
 127.0.0.1:6379> set user:1 Aish
 OK
 127.0.0.1:6379> get user:!
@@ -48,6 +52,7 @@ OK
 127.0.0.1:6379> set user:1 nx hello
 (error) ERR syntax error
 127.0.0.1:6379> set user:1 hello nx
+// use of nx = dont change it if user:1 exists
 (nil)
 127.0.0.1:6379> set user:1 hello
 OK
@@ -78,3 +83,51 @@ OK
 // single redis string can be max of 512 mb
 
 http://localhost:8001/redis-stack/browser = redis gui
+
+
+
+        /////////////////////////// List //////////////////////////////
+
+127.0.0.1:6379> lpush series:1 spidy
+(integer) 1
+127.0.0.1:6379> lpush series:1 thor
+(integer) 2
+127.0.0.1:6379> rpush series:1 ironman
+(integer) 3
+
+
+///////////////////////////////// set ///////////////////////////////////////////
+
+
+can only add unique keys
+
+root@b43eba29db66:/# redis-cli
+127.0.0.1:6379> sadd ip 1
+(integer) 1
+127.0.0.1:6379> sadd ip 2
+(integer) 1
+127.0.0.1:6379> sadd ip 3
+(integer) 1
+127.0.0.1:6379> sadd ip 3
+(integer) 0
+127.0.0.1:6379> sadd ip 2
+(integer) 0
+127.0.0.1:6379>
+
+1 = true
+0 = false
+
+(integer) 0
+127.0.0.1:6379> srem ip 2
+(integer) 1
+127.0.0.1:6379> sismember ip 2
+(integer) 0
+127.0.0.1:6379> sadd address 1
+(integer) 1
+127.0.0.1:6379> sadd address 2
+(integer) 1
+127.0.0.1:6379> sinter ip address
+1) "1"
+
+set key max size 2^32-1
+
