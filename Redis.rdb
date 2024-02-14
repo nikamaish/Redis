@@ -186,3 +186,15 @@ XLEN returns the length of a stream.
 
 GEOADD adds a location to a given geospatial index (note that longitude comes before latitude with this command).
 GEOSEARCH returns locations with a given radius or a bounding box.
+
+
+/////////////////////////////////// Bitmap /////////////////////////
+
+// bitmap is a data structure that is used to store bits. we can use bitmap to store the state of something. e.g
+// satellite gives their data through the sensors in the form of bits. we can use bitmap to store the data from the sensors. it means we use to store logs.
+
+
+
+///////////////////////// Timeseries ////////////////
+
+We can use it for stockmarket data
