@@ -131,3 +131,52 @@ root@b43eba29db66:/# redis-cli
 
 set key max size 2^32-1
 
+///////////////////////////////////////// orderd sets priority queue ///////////////////////////////
+
+127.0.0.1:6379> zadd score 10 aish
+(integer) 1
+127.0.0.1:6379> zadd score 5 nik
+(integer) 1
+127.0.0.1:6379> zadd score 2
+(error) ERR wrong number of arguments for 'zadd' command
+127.0.0.1:6379> zadd score jj
+(error) ERR wrong number of arguments for 'zadd' command
+127.0.0.1:6379> zadd score 3 avi
+(integer) 1
+
+
+As you can see ZADD is similar to SADD, but takes one additional argument (placed before the element to be added) which is the score
+Implementation note: Sorted sets are implemented via a dual-ported data structure containing both a skip list and a hash table, so every time we add an element Redis performs an O(log(N)) operation. That's good, but when we ask for sorted elements Redis does not have to do any work at all, it's already sorted.
+You can think of sorted sets as a mix between a Set and a Hash. Like sets, sorted sets are composed of unique, non-repeating string elements, so in some sense a sorted set is a set as well.
+
+However while elements inside sets are not ordered, every element in a sorted set is associated with a floating point value, called the score (this is why the type is also similar to a hash, since every element is mapped to a value).
+
+
+127.0.0.1:6379> zrange score 0 -1
+1) "avi"
+2) "nik"
+3) "aish"
+127.0.0.1:6379> zreverserange score 0 -1
+(error) ERR unknown command 'zreverserange', with args beginning with: 'score' '0' '-1'
+127.0.0.1:6379> zrevrange score 0 -1
+1) "aish"
+2) "nik"
+3) "avi"
+
+
+
+//////////////////////////////////// Redis Streams //////////////////////////////
+// it takes every second data
+
+A Redis stream is a data structure that acts like an append-only log but also implements several operations to overcome some of the limits of a typical append-only log. These include random access in O(1) time and complex consumption strategies, such as consumer groups. You can use streams to record and simultaneously syndicate events in real time. Examples of Redis stream use cases include:
+
+Event sourcing (e.g., tracking user actions, clicks, etc.)
+Sensor monitoring (e.g., readings from devices in the field)
+Notifications (e.g., storing a record of each user's notifications in a separate stream)
+Redis generates a unique ID for each stream entry. You can use these IDs to retrieve their associated entries later or to read and process all subsequent entries in the stream. Note that because these IDs are related to time, the ones shown here may vary and will be different from the IDs you see in your own Redis instance.
+
+XADD adds a new entry to a stream.
+XREAD reads one or more entries, starting at a given position and moving forward in time.
+XRANGE returns a range of entries between two supplied entry IDs.
+XLEN returns the length of a stream.
+
