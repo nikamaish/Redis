@@ -13,8 +13,8 @@ app.get('/', async(req, res) => {
     }
 
     const {data} = await axios.get('https://jsonplaceholder.typicode.com/todos/1');
-    await client.set('todos',json.stringify(data));
+    await client.set('todos', JSON.stringify(data));
     await client.expire('todos', 30);
     return res.json(data);
 })
-app.listen(9000);
+app.listen(5000);
