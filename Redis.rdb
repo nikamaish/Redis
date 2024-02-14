@@ -180,3 +180,9 @@ XREAD reads one or more entries, starting at a given position and moving forward
 XRANGE returns a range of entries between two supplied entry IDs.
 XLEN returns the length of a stream.
 
+
+
+//////////////////////////////////////// Redis geospatial ///////////////////////////////////
+
+GEOADD adds a location to a given geospatial index (note that longitude comes before latitude with this command).
+GEOSEARCH returns locations with a given radius or a bounding box.
