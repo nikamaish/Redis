@@ -10,6 +10,11 @@ Data Structures: Redis supports various data structures such as strings, hashes,
 
 Persistence: While Redis primarily relies on in-memory storage, it provides options for persistence to disk. This feature ensures that data is not lost in the event of a system restart, making Redis suitable for use in scenarios where durability is a requirement.
 
+Redis provides two main persistence methods:
+RDB (Redis Database Backup): Redis creates snapshots of the dataset at specified intervals. This method is faster for recovery but might miss changes made after the last snapshot.
+
+AOF (Append-Only File): Redis logs every write operation to a file. It appends each operation, ensuring all changes are recorded in real-time. While this method offers more durability, it can be slower than RDB due to constant writing.
+
 Replication and High Availability: Redis supports master-slave replication, allowing for the creation of replicas of a master Redis server. This enhances data availability and provides a degree of fault tolerance.
 
 Pub/Sub Messaging: Redis includes a Publish/Subscribe (Pub/Sub) messaging paradigm, enabling communication between different parts of an application or different applications altogether.
